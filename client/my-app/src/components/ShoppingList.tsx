@@ -1,16 +1,16 @@
 import { useState } from "react";
-import type { ProductT } from "../types";
+import type { Product } from "../types";
 import { ListItem } from "./ListItem";
 import { ItemForm } from "./ItemForm";
 import styles from "./ShoppingList.module.css";
 
 export function ShoppingList() {
-	const [products, setProducts] = useState<ProductT[]>([]);
+	const [products, setProducts] = useState<Product[]>([]);
 	const [isAdding, setIsAdding] = useState(false);
 
 	const handleAdd = (name: string, quantity: number) => {
 		if (!name.trim()) return;
-		const newProduct: ProductT = {
+		const newProduct: Product = {
 			id: crypto.randomUUID(),
 			name,
 			quantity,
@@ -34,13 +34,12 @@ export function ShoppingList() {
 
 	return (
 		<section className={styles.listSection}>
+			{!isAdding ? (
+				<button className={styles.addItemButton} onClick={() => setIsAdding(true)}>+ New item</button>
+			) : (
+				<ItemForm onConfirm={handleAdd} onCancel={() => setIsAdding(false)} />
+			)}
 			<div className={styles.listContainer}>
-				{!isAdding ? (
-					<button className={styles.addItemButton} onClick={() => setIsAdding(true)}>+ New item</button>
-				) : (
-					<ItemForm onConfirm={handleAdd} onCancel={() => setIsAdding(false)} />
-				)}
-
 				{products.map(p => (
 					<ListItem 
 						key={p.id} 

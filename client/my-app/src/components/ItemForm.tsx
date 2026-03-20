@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { ProductT } from "../types";
+import type { Product } from "../types";
 import styles from "./ItemForm.module.css";
 
 interface ItemFormProps {
-	initialData?: ProductT;
+	initialData?: Product;
 	onConfirm: (name: string, quantity: number) => void;
 	onCancel: () => void;
 }
@@ -21,6 +21,12 @@ export function ItemForm({ initialData, onConfirm, onCancel }: ItemFormProps) {
 				onChange={(e) => setName(e.target.value)} 
 				placeholder="Product name"
 				autoFocus
+				onKeyDown={e => {
+					if (e.key === "Enter") {
+						e.preventDefault()
+						onConfirm(name, quantity)
+					}
+				}}
 			/>
 			<div className={styles.quantityRow}>
 				<button className={styles.quantityButton} onClick={() => setQuantity(q => q + 1)}>+</button>

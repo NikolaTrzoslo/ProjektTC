@@ -6,6 +6,11 @@
 	border-bottom: 1px solid #b4befe;
 	font-size: larger;
 	font-weight: 600;
+	font-style: italic;
+}
+
+.productRow:hover {
+	cursor: pointer;
 }
 
 .infoGroup {
@@ -14,9 +19,23 @@
 	gap: 1rem;
 }
 
-.controls {
+.bought {
+	color: #6c7086;
+	text-decoration: line-through;
+	cursor: pointer;
+}
+
+.notBought {
+	cursor: pointer;
+}
+
+.showControls {
 	display: flex;
 	gap: 0.5rem;
+}
+
+.hideControls {
+	display: none;
 }
 
 .button {
@@ -27,7 +46,6 @@
 	font-size: large;
 	user-select: none;
 }
-
 
 .removeButton {
 	color: #f38ba8;
@@ -53,7 +71,7 @@
 }
 
 .check:checked {
-	border-color: #a6e3a1;
+	border-color: #6c7086;;
 }
 
 .check:checked::after {
@@ -62,7 +80,7 @@
 	left: 0.2em;
 	width: 0.3em;
 	height: 0.6em;
-	border: solid #a6e3a1;
+	border: solid #6c7086;;
 	border-width: 0 0.2em 0.2em 0;
 	transform: rotate(45deg);
 }

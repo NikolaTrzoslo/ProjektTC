@@ -1,17 +1,18 @@
 import { useState } from "react";
-import type { ProductT } from "../types";
+import type { Product } from "../types";
 import { ItemForm } from "./ItemForm";
 import styles from "./ListItem.module.css";
 
 interface ListItemProps {
-	product: ProductT;
+	product: Product;
 	onDelete: (id: string) => void;
 	onUpdate: (id: string, name: string, quantity: number) => void;
 	onToggleBought: (id: string) => void;
 }
 
 export function ListItem({ product, onDelete, onUpdate, onToggleBought }: ListItemProps) {
-	const [isEditing, setIsEditing] = useState(false);
+	const [isEditing, setIsEditing] = useState(false)
+	const [isHovered, setIsHovered] = useState(false)
 
 	if (isEditing) {
 		return (
@@ -27,18 +28,25 @@ export function ListItem({ product, onDelete, onUpdate, onToggleBought }: ListIt
 	}
 
 	return (
-		<div className={styles.productRow}>
+		<div className={styles.productRow}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+			onClick={() => onToggleBought(product.id)}
+		>
 			<div className={styles.infoGroup}>
 				<input className={styles.check}
-					type="checkbox" 
-					checked={product.bought} 
-					onChange={() => onToggleBought(product.id)} 
+					type="checkbox"
+					checked={product.bought}
+					onChange={() => onToggleBought(product.id)}
+					onClick={e => e.stopPropagation()}
 				/>
-				<span style={{ textDecoration: product.bought ? 'line-through' : 'none' }}>
+				<span className={product.bought ? styles.bought : styles.notBought}>
 					{product.name} x{product.quantity}
 				</span>
 			</div>
-			<div className={styles.controls}>
+			<div className={isHovered ? styles.showControls : styles.hideControls}
+				onClick={e => e.stopPropagation()}
+			>
 				<button className={styles.button} onClick={() => setIsEditing(true)}>{"\uf448"}</button>
 				<button className={`${styles.button} ${styles.removeButton}`} onClick={() => onDelete(product.id)}>{"\uf48e"}</button>
 			</div>
