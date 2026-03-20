@@ -1,3 +1,20 @@
+.menu {
+	position: fixed;
+	top: 2rem;
+	right: 2.5rem;
+}
+
+.menuButton {
+	all: unset;
+	font-size: xx-large;
+	cursor: pointer;
+	user-select: none;
+}
+
+.menuButton:hover {
+	color: #cba6f7;
+}
+
 .listSection {
 	display: flex;
 	justify-content: center;

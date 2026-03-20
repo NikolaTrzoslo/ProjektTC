@@ -4,6 +4,8 @@ import { ListItem } from "./ListItem";
 import { ItemForm } from "./ItemForm";
 import styles from "./ShoppingList.module.css";
 
+// Add two top-right buttons (example: Settings and Help)
+
 export function ShoppingList() {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [isAdding, setIsAdding] = useState(false);
@@ -33,23 +35,28 @@ export function ShoppingList() {
 	};
 
 	return (
-		<section className={styles.listSection}>
-			{!isAdding ? (
-				<button className={styles.addItemButton} onClick={() => setIsAdding(true)}>+ New item</button>
-			) : (
-				<ItemForm onConfirm={handleAdd} onCancel={() => setIsAdding(false)} />
-			)}
-			<div className={styles.listContainer}>
-				{products.map(p => (
-					<ListItem 
-						key={p.id} 
-						product={p} 
-						onDelete={handleDelete} 
-						onUpdate={handleUpdate}
-						onToggleBought={toggleBought}
-					/>
-				))}
+		<>
+			<div className={styles.menu}>
+				<button className={styles.menuButton}>{"\udb80\udf5c"}</button>
 			</div>
-		</section>
+			<section className={styles.listSection}>
+				{!isAdding ? (
+					<button className={styles.addItemButton} onClick={() => setIsAdding(true)}>+ New item</button>
+				) : (
+					<ItemForm onConfirm={handleAdd} onCancel={() => setIsAdding(false)} />
+				)}
+				<div className={styles.listContainer}>
+					{products.map(p => (
+						<ListItem 
+							key={p.id} 
+							product={p} 
+							onDelete={handleDelete} 
+							onUpdate={handleUpdate}
+							onToggleBought={toggleBought}
+						/>
+					))}
+				</div>
+			</section>
+		</>
 	);
 }
