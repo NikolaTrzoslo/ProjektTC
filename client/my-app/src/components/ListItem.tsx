@@ -12,7 +12,6 @@ interface ListItemProps {
 
 export function ListItem({ product, onDelete, onUpdate, onToggleBought }: ListItemProps) {
 	const [isEditing, setIsEditing] = useState(false)
-	const [isHovered, setIsHovered] = useState(false)
 
 	if (isEditing) {
 		return (
@@ -29,8 +28,6 @@ export function ListItem({ product, onDelete, onUpdate, onToggleBought }: ListIt
 
 	return (
 		<div className={styles.productRow}
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
 			onClick={() => onToggleBought(product.id)}
 		>
 			<div className={styles.infoGroup}>
@@ -44,7 +41,7 @@ export function ListItem({ product, onDelete, onUpdate, onToggleBought }: ListIt
 					{product.name} x{product.quantity}
 				</span>
 			</div>
-			<div className={isHovered ? styles.showControls : styles.hideControls}
+			<div className={styles.controls}
 				onClick={e => e.stopPropagation()}
 			>
 				<button className={styles.button} onClick={() => setIsEditing(true)}>{"\uf448"}</button>

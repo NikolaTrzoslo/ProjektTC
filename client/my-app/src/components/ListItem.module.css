@@ -4,6 +4,8 @@
 	align-items: center;
 	padding: 0.5rem;
 	border-bottom: 1px solid #b4befe;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 	font-size: larger;
 	font-weight: 600;
 	font-style: italic;
@@ -11,6 +13,7 @@
 
 .productRow:hover {
 	cursor: pointer;
+	background-color: #313244;
 }
 
 .infoGroup {
@@ -29,13 +32,13 @@
 	cursor: pointer;
 }
 
-.showControls {
-	display: flex;
-	gap: 0.5rem;
+.controls {
+	display: none;
 }
 
-.hideControls {
-	display: none;
+.productRow:hover .controls {
+	display: flex;
+	gap: 0.5rem;
 }
 
 .button {

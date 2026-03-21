@@ -4,3 +4,20 @@
 	align-items: center;
 	margin-top: 2rem;
 }
+
+.menu {
+	position: fixed;
+	top: 2rem;
+	left: 2.5rem;
+}
+
+.menuButton {
+	all: unset;
+	font-size: xx-large;
+	cursor: pointer;
+	user-select: none;
+}
+
+.menuButton:hover {
+	color: #b4befe;
+}
