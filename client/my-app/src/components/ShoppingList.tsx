@@ -53,7 +53,9 @@ export function ShoppingList({ filter }: { filter: string }) {
 	return (
 		<section className={styles.listSection}>
 			{!isAdding ? (
-				<button className={styles.addItemButton} onClick={() => setIsAdding(true)}>+ New item</button>
+				<button className={styles.addItemButton} onClick={() => setIsAdding(true)}>
+					+ New item
+				</button>
 			) : (
 				<ItemForm onConfirm={handleAdd} onCancel={() => setIsAdding(false)} />
 			)}

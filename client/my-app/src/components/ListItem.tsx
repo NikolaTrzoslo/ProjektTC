@@ -41,11 +41,16 @@ export function ListItem({ product, onDelete, onUpdate, onToggleBought }: ListIt
 					{product.name} x{product.quantity}
 				</span>
 			</div>
-			<div className={styles.controls}
-				onClick={e => e.stopPropagation()}
-			>
-				<button className={styles.button} onClick={() => setIsEditing(true)}>{"\uf448"}</button>
-				<button className={`${styles.button} ${styles.removeButton}`} onClick={() => onDelete(product.id)}>{"\uf48e"}</button>
+			<div className={styles.controls} onClick={e => e.stopPropagation()}>
+				<button className={styles.button} onClick={() => setIsEditing(true)}>
+					{"\uf448"}
+				</button>
+				<button
+					className={`${styles.button} ${styles.removeButton}`}
+					onClick={() => onDelete(product.id)}
+				>
+					{"\uf48e"}
+				</button>
 			</div>
 		</div>
 	);

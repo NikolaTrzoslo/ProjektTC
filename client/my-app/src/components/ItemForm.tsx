@@ -29,11 +29,20 @@ export function ItemForm({ initialData, onConfirm, onCancel }: ItemFormProps) {
 				}}
 			/>
 			<div className={styles.quantityRow}>
-				<button className={styles.quantityButton} onClick={() => setQuantity(q => q + 1)}>+</button>
+				<button className={styles.quantityButton} onClick={() => setQuantity(q => q + 1)}>
+					+
+				</button>
 				<span>{quantity}</span>
-				<button className={styles.quantityButton} onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
+				<button
+					className={styles.quantityButton}
+					onClick={() => setQuantity(q => Math.max(1, q - 1))}
+				>
+					-
+				</button>
 				<div className={styles.spacer} />
-				<button className={styles.confirmButton} onClick={() => onConfirm(name, quantity)}>{"\udb80\udd2c"}</button>
+				<button className={styles.confirmButton} onClick={() => onConfirm(name, quantity)}>
+					{"\udb80\udd2c"}
+				</button>
 				<button className={styles.cancelButton} onClick={onCancel}>{"\uf467"}</button>
 				<div />
 			</div>
