@@ -66,7 +66,7 @@ export function AuthPage( { setDisplayAuth }: AuthDisplayProps ) {
 						  <input
 						  	className={styles.inputField}
 							type={showPassword ? "text" : "password"}
-							onChange={(e) => setRePassword(e.target.value)}
+							onChange={(e) => setRePassword(e.target.value.trim())}
 						  />
 			</>
 		);
@@ -96,7 +96,7 @@ export function AuthPage( { setDisplayAuth }: AuthDisplayProps ) {
 					<input
 						className={styles.inputField}
 						type={showPassword ? "text" : "password"}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => setPassword(e.target.value.trim())}
 					/>
 					<button
 						className={styles.eyeButton}
@@ -106,7 +106,6 @@ export function AuthPage( { setDisplayAuth }: AuthDisplayProps ) {
 					>
 						{showPassword ? "\udb80\ude09" : "\udb80\ude08"}
 					</button>
-					<div />
 				</div>
 				{repeatPassword}
 

@@ -98,15 +98,19 @@
 	display: flex;
 	gap: 1rem;
 	align-items: center;
+	width: 100%;
+	position: relative;
 }
 
 .eyeButton {
 	all: unset;
 	cursor: pointer;
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 	color: #a6adc8;
 	user-select: none;
 	margin-bottom: 1rem;
+	position: absolute;
+	right: 1rem;
 }
 
 .eyeButton:hover {
