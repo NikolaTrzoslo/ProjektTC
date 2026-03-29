@@ -11,7 +11,11 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-var ProductsCollection *mongo.Collection
+var (
+	ProductsCollection 		*mongo.Collection
+	UsersCollection 		*mongo.Collection
+	ShoppingListsCollection *mongo.Collection
+)
 
 func ConnectDB() {
 	err := godotenv.Load()
@@ -39,6 +43,11 @@ func ConnectDB() {
 		log.Fatal("MongoDB ping error:", err)
 	}
 
-	// get a handle for the products collection
+	// get handles for the products, users, and shopping lists collections
 	ProductsCollection = mongoClient.Database("cs-web-shopping-list").Collection("products")
+
+	UsersCollection = mongoClient.Database("cs-web-shopping-list").Collection("users")
+
+	ShoppingListsCollection =
+		mongoClient.Database("cs-web-shopping-list").Collection("shopping_lists")
 }

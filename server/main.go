@@ -16,7 +16,9 @@ func main() {
 
 	ConnectDB()
 	http.HandleFunc("/products", AllProductsHandler)
-	http.HandleFunc("/products/{id}", ProductHandler)
+	http.HandleFunc("/products/", ProductHandler)
+	http.HandleFunc("/register", RegisterHandler)
+	http.HandleFunc("/login", LoginHandler)
 
 	c := cors.Default()
 	handler := c.Handler(http.DefaultServeMux)
