@@ -20,10 +20,10 @@ jobs:
 
       - name: Build and Push Backend
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:latest ./backend
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:latest ./server
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:latest
 
       - name: Build and Push Frontend
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:latest ./frontend
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:latest ./client/my-app
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:latest
