@@ -22,7 +22,7 @@ func main() {
 
 	c := cors.Default()
 	handler := c.Handler(http.DefaultServeMux)
-	err := http.ListenAndServe(":8080", handler)
+	err := http.ListenAndServe("0.0.0.0:8080", handler)
 	if err != nil {
 		fmt.Println("Server error:", err)
 	}

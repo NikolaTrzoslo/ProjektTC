@@ -39,18 +39,28 @@ jobs:
           docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }} ./client/my-app
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }}
 
-      # Deploy Backend
-      - name: Deploy Backend Container App
+      # Deploy backend
+      - name: Deploy Backend
         run: |
           az containerapp update \
             --name backend \
             --resource-group ProjektZaliczeniowy-JS-NT \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:${{ github.sha }}
 
-      # Deploy Frontend
-      - name: Deploy Frontend Container App
+          az containerapp update \
+            --name backend \
+            --resource-group ProjektZaliczeniowy-JS-NT \
+            --set properties.configuration.ingress.targetPort=8080
+
+      # Depoly frontend
+      - name: Deploy Frontend
         run: |
           az containerapp update \
             --name frontend \
             --resource-group ProjektZaliczeniowy-JS-NT \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }}
+
+          az containerapp update \
+            --name frontend \
+            --resource-group ProjektZaliczeniowy-JS-NT \
+            --set properties.configuration.ingress.targetPort=80
