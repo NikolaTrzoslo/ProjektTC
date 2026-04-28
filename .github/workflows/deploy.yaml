@@ -44,7 +44,7 @@ jobs:
         run: |
           az containerapp update \
             --name backend \
-            --resource-group YOUR_RESOURCE_GROUP \
+            --resource-group ProjektZaliczeniowy-JS-NT \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:${{ github.sha }}
 
       # Deploy Frontend
@@ -52,5 +52,5 @@ jobs:
         run: |
           az containerapp update \
             --name frontend \
-            --resource-group YOUR_RESOURCE_GROUP \
+            --resource-group ProjektZaliczeniowy-JS-NT \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }}
