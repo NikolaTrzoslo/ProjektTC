@@ -58,10 +58,6 @@ jobs:
             --target-port 8080 \
             --type external
 
-          az containerapp start \
-            --name backend \
-            --resource-group ProjektZaliczeniowy-JS-NT
-
           echo "Waiting for backend revision to stabilize..."
           sleep 15
 
@@ -79,10 +75,6 @@ jobs:
             --resource-group ProjektZaliczeniowy-JS-NT \
             --target-port 80 \
             --type external
-
-          az containerapp start \
-            --name frontend \
-            --resource-group ProjektZaliczeniowy-JS-NT
 
       # Verify deployments
       - name: Verify Deployment
