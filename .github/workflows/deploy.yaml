@@ -45,14 +45,16 @@ jobs:
           az containerapp update \
             --name backend \
             --resource-group ProjektZaliczeniowy-JS-NT \
-            --image ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:${{ github.sha }}
-            --env-vars MONGODB_URI="${{ secrets.MONGODB_URI }}"
+            --image ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:${{ github.sha }} \
+            --set-env-vars MONGODB_URI="${{ secrets.MONGODB_URI }}"
 
           az containerapp ingress enable \
             --name backend \
             --resource-group ProjektZaliczeniowy-JS-NT \
             --target-port 8080 \
             --type external
+
+          sleep 10
 
       # Deploy frontend
       - name: Deploy Frontend
