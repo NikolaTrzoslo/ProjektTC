@@ -46,7 +46,8 @@ jobs:
             --name backend \
             --resource-group ProjektZaliczeniowy-JS-NT \
             --image ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:${{ github.sha }} \
-            --set-env-vars MONGODB_URI="${{ secrets.MONGODB_URI }}"
+            --set-env-vars MONGODB_URI="${{ secrets.MONGODB_URI }}" JWT_SECRET="${{ secrets.JWT_SECRET }}" \
+            --min-replicas 1
 
           az containerapp ingress enable \
             --name backend \
@@ -54,7 +55,8 @@ jobs:
             --target-port 8080 \
             --type external
 
-          sleep 10
+          echo "Waiting for backend revision to stabilize..."
+          sleep 15
 
       # Deploy frontend
       - name: Deploy Frontend
@@ -62,10 +64,23 @@ jobs:
           az containerapp update \
             --name frontend \
             --resource-group ProjektZaliczeniowy-JS-NT \
-            --image ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }}
+            --image ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }} \
+            --min-replicas 1
 
           az containerapp ingress enable \
             --name frontend \
             --resource-group ProjektZaliczeniowy-JS-NT \
             --target-port 80 \
             --type external
+
+      # Verify deployments
+      - name: Verify Deployment
+        run: |
+          echo "Checking backend status..."
+          az containerapp show --name backend --resource-group ProjektZaliczeniowy-JS-NT --query 'properties.runningStatus' -o json
+
+          echo "Checking frontend status..."
+          az containerapp show --name frontend --resource-group ProjektZaliczeniowy-JS-NT --query 'properties.runningStatus' -o json
+
+          echo "Backend FQDN: https://backend.yellowdune-c8c3c47f.polandcentral.azurecontainerapps.io/ping"
+          echo "Frontend FQDN: https://frontend.yellowdune-c8c3c47f.polandcentral.azurecontainerapps.io"
