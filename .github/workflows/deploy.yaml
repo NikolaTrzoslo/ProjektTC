@@ -45,22 +45,16 @@ jobs:
           az containerapp update \
             --name backend \
             --resource-group ProjektZaliczeniowy-JS-NT \
-            --image ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:${{ github.sha }}
+            --image ${{ secrets.ACR_LOGIN_SERVER }}/backend-go:${{ github.sha }} \
+            --target-port 8080 \
+            --ingress external
 
-          az containerapp update \
-            --name backend \
-            --resource-group ProjektZaliczeniowy-JS-NT \
-            --set properties.configuration.ingress.targetPort=8080
-
-      # Depoly frontend
+      # Deploy frontend
       - name: Deploy Frontend
         run: |
           az containerapp update \
             --name frontend \
             --resource-group ProjektZaliczeniowy-JS-NT \
-            --image ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }}
-
-          az containerapp update \
-            --name frontend \
-            --resource-group ProjektZaliczeniowy-JS-NT \
-            --set properties.configuration.ingress.targetPort=80
+            --image ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }} \
+            --target-port 80 \
+            --ingress external
