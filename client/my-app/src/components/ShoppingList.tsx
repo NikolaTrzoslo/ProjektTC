@@ -12,6 +12,7 @@ type ShoppingListProps = {
 export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [isAdding, setIsAdding] = useState(false);
+	const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 	const filteredProducts = products.filter(p => {
 		switch (filter) {
@@ -38,7 +39,7 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 	useEffect(() => {
 		const token = localStorage.getItem("token");
 		if (token) {
-			fetch("http://localhost:8080/products", {
+			fetch(`${API_BASE}/products`, {
 				headers: { "Authorization": `Bearer ${token}` }
 			})
 			.then(res => res.ok ? res.json() : Promise.reject())
@@ -62,7 +63,7 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 		if (!name.trim()) return;
 		if (userIsLoggedIn) {
 			const token = localStorage.getItem("token");
-			fetch("http://localhost:8080/products", {
+			fetch(`${API_BASE}/products`, {
 				method: "POST",
 				headers: {
 					"Authorization": `Bearer ${token}`,
@@ -73,7 +74,7 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 			.then(res => res.ok ? res.json() : Promise.reject())
 			.then(() => {
 				// Refetch products from backend to update UI
-				fetch("http://localhost:8080/products", {
+				fetch(`${API_BASE}/products`, {
 					headers: { "Authorization": `Bearer ${token}` }
 				})
 				.then(res => res.ok ? res.json() : Promise.reject())
@@ -98,7 +99,7 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 	const handleUpdate = (id: string, name: string, quantity: number) => {
 		if (userIsLoggedIn) {
 			const token = localStorage.getItem("token");
-			fetch(`http://localhost:8080/products/${id}`, {
+			fetch(`${API_BASE}/products/${id}`, {
 				method: "PATCH",
 				headers: {
 					"Authorization": `Bearer ${token}`,
@@ -108,7 +109,7 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 			})
 			.then(res => res.ok ? res.json() : Promise.reject())
 			.then(() => {
-				fetch("http://localhost:8080/products", {
+				fetch(`${API_BASE}/products`, {
 					headers: { "Authorization": `Bearer ${token}` }
 				})
 				.then(res => res.ok ? res.json() : Promise.reject())
@@ -123,13 +124,13 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 	const handleDelete = (id: string) => {
 		if (userIsLoggedIn) {
 			const token = localStorage.getItem("token");
-			fetch(`http://localhost:8080/products/${id}`, {
+			fetch(`${API_BASE}/products/${id}`, {
 				method: "DELETE",
 				headers: { "Authorization": `Bearer ${token}` }
 			})
 			.then(res => {
 				if (res.ok) {
-					return fetch("http://localhost:8080/products", {
+					return fetch(`${API_BASE}/products`, {
 						headers: { "Authorization": `Bearer ${token}` }
 					})
 					.then(res => res.ok ? res.json() : Promise.reject())
@@ -150,7 +151,7 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 			// Find the product to get its current bought state
 			const product = products.find(p => p.id === id);
 			if (!product) return;
-			fetch(`http://localhost:8080/products/${id}`, {
+			fetch(`${API_BASE}/products/${id}`, {
 				method: "PATCH",
 				headers: {
 					"Authorization": `Bearer ${token}`,
@@ -160,7 +161,7 @@ export function ShoppingList({ filter, userIsLoggedIn }: ShoppingListProps) {
 			})
 			.then(res => res.ok ? res.json() : Promise.reject())
 			.then(() => {
-				fetch("http://localhost:8080/products", {
+				fetch(`${API_BASE}/products`, {
 					headers: { "Authorization": `Bearer ${token}` }
 				})
 				.then(res => res.ok ? res.json() : Promise.reject())
