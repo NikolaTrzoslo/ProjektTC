@@ -18,14 +18,18 @@ var (
 )
 
 func ConnectDB() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found, using environment variables")
 	}
 
 	uri := os.Getenv("MONGODB_URI")
 	if uri == "" {
 		log.Fatal("MONGODB_URI not set in environment")
+	}
+
+	dbName := os.Getenv("MONGODB_DB")
+	if dbName == "" {
+		dbName = "cs-web-shopping-list"
 	}
 
 	// connect to MongoDB
@@ -44,12 +48,12 @@ func ConnectDB() {
 	}
 
 	// get handles for the products, users, and shopping lists collections
-	ProductsCollection = mongoClient.Database("cs-web-shopping-list").Collection("products")
+	ProductsCollection = mongoClient.Database(dbName).Collection("products")
 
-	UsersCollection = mongoClient.Database("cs-web-shopping-list").Collection("users")
+	UsersCollection = mongoClient.Database(dbName).Collection("users")
 
 	ShoppingListsCollection =
-		mongoClient.Database("cs-web-shopping-list").Collection("shopping_lists")
+		mongoClient.Database(dbName).Collection("shopping_lists")
 
 	log.Println("Connected to MongoDB successfully")
 }
