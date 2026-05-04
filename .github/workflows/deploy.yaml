@@ -36,7 +36,10 @@ jobs:
       # Build & Push Frontend
       - name: Build and Push Frontend
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }} ./client/my-app
+          docker build \
+            --build-arg VITE_API_BASE_URL=https://backend.yellowdune-c8c3c47f.polandcentral.azurecontainerapps.io \
+            -t ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }} \
+            ./client/my-app
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/frontend-react:${{ github.sha }}
 
       # Deploy backend
