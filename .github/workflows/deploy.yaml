@@ -51,7 +51,7 @@ jobs:
             --name backend \
             --resource-group ProjektZaliczeniowy-JS-NT \
             --target-port 8080 \
-            --type external
+            --ingress external
 
       # Deploy frontend
       - name: Deploy Frontend
@@ -65,4 +65,4 @@ jobs:
             --name frontend \
             --resource-group ProjektZaliczeniowy-JS-NT \
             --target-port 80 \
-            --type external
+            --ingress external
