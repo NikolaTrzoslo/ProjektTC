@@ -20,7 +20,13 @@ func main() {
 	http.HandleFunc("/register", RegisterHandler)
 	http.HandleFunc("/login", LoginHandler)
 
-	c := cors.Default()
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+        AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+        AllowedHeaders:   []string{"Content-Type", "Authorization"},
+        AllowCredentials: true,
+	})
+
 	handler := c.Handler(http.DefaultServeMux)
 	err := http.ListenAndServe("0.0.0.0:8080", handler)
 	if err != nil {
